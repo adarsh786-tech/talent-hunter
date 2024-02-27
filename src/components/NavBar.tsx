@@ -30,10 +30,10 @@ const NavBar = () => {
             <ul className="list-none sm:flex hidden justify-end items-center flex-1">
               {NavLinks.map((navItems, indx) => (
                 <li key={indx}>
-                  <div className="">
+                  <div>
                     <Link
-                      href="/"
-                      className={`text-sm animate-text bg-gradient-to-r from-orange-600 via-white to-orange-700 bg-clip-text text-transparent font-black  ${
+                      href={navItems.url}
+                      className={`text-[18px] text-white p-2 rounded-xl border border-purple-900  ${
                         indx === NavLinks.length - 1 ? "mr-0" : "mr-8"
                       }`}
                     >
@@ -53,7 +53,7 @@ const NavBar = () => {
               <div
                 className={`${
                   toggle ? `flex` : `hidden`
-                } p-6 bg-purple-950 absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar`}
+                } p-4 bg-slate-600 absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar`}
               >
                 <ul className="list-none flex flex-col justify-end items-center flex-1">
                   {NavLinks.map((navItems, indx) => (
@@ -61,7 +61,7 @@ const NavBar = () => {
                       <div className="">
                         <Link
                           href="/"
-                          className={`text-sm animate-text bg-gradient-to-r from-orange-600 via-white to-orange-700 bg-clip-text text-transparent font-black  ${
+                          className={`text-[12px] text-white  ${
                             indx === NavLinks.length - 1 ? "mr-0" : "mb-4"
                           }`}
                         >
