@@ -1,8 +1,7 @@
 import React from "react";
 import Link from "next/link";
-type Props = {};
 
-function ProfilePageDesign({}: Props) {
+const ProfilePageDesign = ({ name }: any) => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
@@ -16,7 +15,7 @@ function ProfilePageDesign({}: Props) {
           </div>
           <div className="p-8">
             <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-              John Doe
+              {name}
             </div>
             <p className="mt-2 text-gray-600">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
@@ -35,6 +34,6 @@ function ProfilePageDesign({}: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default ProfilePageDesign;

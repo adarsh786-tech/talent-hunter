@@ -1,13 +1,52 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoginLogo from "@/assets/login.png";
 import UnlockLogo from "@/assets/unlock.png";
 import Logo from "@/assets/talenthunter.png";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { Toaster, toast } from "react-hot-toast";
 
 const UserRegister = () => {
-  const handleSubmit = () => {};
+  const router = useRouter();
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    if (
+      user.email.length > 0 &&
+      user.email.length > 0 &&
+      user.password.length > 0
+    ) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [user.username, user.email, user.password]);
+
+  const onSignup = async () => {
+    try {
+      const response = await axios.post("/api/users/register", user);
+      console.log(`Registration Success... ${response}`);
+      toast.success(`Registration Success... ${response}`);
+      router.push("/login");
+    } catch (error: any) {
+      console.log(`Registration Failed...Error: ${error}`);
+      toast.error(`Registration Failed... Error: ${error}`);
+    }
+
+    setUser({
+      username: "",
+      email: "",
+      password: "",
+    });
+  };
 
   return (
     <section className="flex justify-center items-center px-4 py-4 ">
@@ -34,14 +73,14 @@ const UserRegister = () => {
           Already have an account?{" "}
           <Link
             // below to add for login
-            href="/"
+            href="/login"
             title=""
             className="font-semibold text-black transition-all duration-200 hover:underline"
           >
             Login
           </Link>
         </p>
-        <form onSubmit={handleSubmit} className="mt-8">
+        <form className="mt-8">
           <div className="space-y-5">
             <div>
               <label
@@ -58,6 +97,10 @@ const UserRegister = () => {
                   id="username"
                   placeholder="Username"
                   required
+                  value={user.username}
+                  onChange={(e) =>
+                    setUser({ ...user, username: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -76,6 +119,8 @@ const UserRegister = () => {
                   id="email"
                   placeholder="Email"
                   required
+                  value={user.email}
+                  onChange={(e) => setUser({ ...user, email: e.target.value })}
                 />
               </div>
             </div>
@@ -104,6 +149,10 @@ const UserRegister = () => {
                   id="password"
                   placeholder="Password"
                   required
+                  value={user.password}
+                  onChange={(e) =>
+                    setUser({ ...user, password: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -111,23 +160,9 @@ const UserRegister = () => {
               <button
                 type="submit"
                 className="gap-2 inline-flex w-full items-center justify-center rounded-md border border-black bg-white px-3.5 py-2.5 font-semibold leading-7 text-black/85 hover:bg-black/30"
+                // onClick={onSignup}
               >
-                Sign in{" "}
-                {/* <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="ml-2"
-                >
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg> */}
+                {buttonDisabled === true ? "No Sign In" : "Sign In"}{" "}
                 <Image
                   src={UnlockLogo}
                   alt="LoginLogo"

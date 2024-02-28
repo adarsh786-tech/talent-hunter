@@ -1,5 +1,5 @@
 import React from "react";
-import UserLogin from "./UserLogin";
+import UserLogin from "@/app/login/UserLogin";
 type Props = {};
 
 function LoginPage({}: Props) {

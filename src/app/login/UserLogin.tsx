@@ -33,7 +33,7 @@ function UserLogin({}: Props) {
           Don&#x27;t have an account?{" "}
           <Link
             // below to add up for signup
-            href="/"
+            href="/register"
             title=""
             className="font-semibold text-black transition-all duration-200 hover:underline"
           >
