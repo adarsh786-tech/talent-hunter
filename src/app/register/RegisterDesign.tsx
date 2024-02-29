@@ -20,7 +20,7 @@ const UserRegister = () => {
 
   useEffect(() => {
     if (
-      user.email.length > 0 &&
+      user.username.length > 0 &&
       user.email.length > 0 &&
       user.password.length > 0
     ) {
@@ -28,19 +28,19 @@ const UserRegister = () => {
     } else {
       setButtonDisabled(true);
     }
-  }, [user.username, user.email, user.password]);
+  }, [user]);
 
-  const onSignup = async () => {
+  const onSignup = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     try {
       const response = await axios.post("/api/users/register", user);
-      console.log(`Registration Success... ${response}`);
-      toast.success(`Registration Success... ${response}`);
+      console.log(`Registration Success... ${response.data}`);
+      toast.success(`Registration Success... ${response.data}`);
       router.push("/login");
     } catch (error: any) {
       console.log(`Registration Failed...Error: ${error}`);
       toast.error(`Registration Failed... Error: ${error}`);
     }
-
     setUser({
       username: "",
       email: "",
@@ -50,6 +50,7 @@ const UserRegister = () => {
 
   return (
     <section className="flex justify-center items-center px-4 py-4 ">
+      <Toaster position="top-right" />
       <div className="xl:w-full xl:mx-auto xl:max-w-sm 2xl:max-w-md">
         <div className="flex justify-center">
           <Image
@@ -133,14 +134,6 @@ const UserRegister = () => {
                   {" "}
                   Password{" "}
                 </label>
-                {/* <a
-                      href="#"
-                      title=""
-                      className="text-sm font-semibold text-black hover:underline"
-                    >
-                      {" "}
-                      Forgot password?{" "}
-                    </a> */}
               </div>
               <div className="mt-2">
                 <input
@@ -160,7 +153,7 @@ const UserRegister = () => {
               <button
                 type="submit"
                 className="gap-2 inline-flex w-full items-center justify-center rounded-md border border-black bg-white px-3.5 py-2.5 font-semibold leading-7 text-black/85 hover:bg-black/30"
-                // onClick={onSignup}
+                onClick={onSignup}
               >
                 {buttonDisabled === true ? "No Sign In" : "Sign In"}{" "}
                 <Image

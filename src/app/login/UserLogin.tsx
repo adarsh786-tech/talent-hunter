@@ -1,15 +1,50 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LoginLogo from "@/assets/login.png";
 import UnlockLogo from "@/assets/unlock.png";
 import Logo from "@/assets/talenthunter.png";
 import Image from "next/image";
 import Link from "next/link";
-type Props = {};
+import { useRouter } from "next/navigation";
+import { Toaster, toast } from "react-hot-toast";
+import axios from "axios";
 
-function UserLogin({}: Props) {
+function UserLogin() {
+  const router = useRouter();
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  useEffect(() => {
+    if (user.email.length > 0 && user.password.length > 0) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [user]);
+
+  const onLogin = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post("/api/users/login", user);
+      console.log(response.data);
+      console.log(`Login Success: ${response.data}`);
+      toast.success(`Login Success: ${response.data}`);
+      router.push(`/profile/${response.data.username}`);
+    } catch (error: any) {
+      console.log(`Login Failed...`);
+      toast.error(`Login Failed`);
+    }
+    setUser({
+      email: "",
+      password: "",
+    });
+  };
+
   return (
     <section className="flex justify-center items-center px-4 py-4 ">
+      <Toaster position="top-right" />
       <div className="xl:w-full xl:mx-auto xl:max-w-sm 2xl:max-w-md">
         <div className="flex justify-center">
           <Image
@@ -52,6 +87,8 @@ function UserLogin({}: Props) {
                   className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="email"
                   placeholder="Email"
+                  value={user.email}
+                  onChange={(e) => setUser({ ...user, email: e.target.value })}
                 />
               </div>
             </div>
@@ -64,20 +101,16 @@ function UserLogin({}: Props) {
                   {" "}
                   Password{" "}
                 </label>
-                {/* <a
-                      href="#"
-                      title=""
-                      className="text-sm font-semibold text-black hover:underline"
-                    >
-                      {" "}
-                      Forgot password?{" "}
-                    </a> */}
               </div>
               <div className="mt-2">
                 <input
                   className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="password"
                   placeholder="Password"
+                  value={user.password}
+                  onChange={(e) =>
+                    setUser({ ...user, password: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -85,8 +118,9 @@ function UserLogin({}: Props) {
               <button
                 type="button"
                 className="gap-2 inline-flex w-full items-center justify-center rounded-md border border-black bg-white px-3.5 py-2.5 font-semibold leading-7 text-black/85 hover:bg-black/30"
+                onClick={onLogin}
               >
-                Sign in{" "}
+                {buttonDisabled === true ? "No Log In" : "Log In"}{" "}
                 <Image
                   src={UnlockLogo}
                   alt="LoginLogo"
