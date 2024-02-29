@@ -31,7 +31,7 @@ function UserLogin() {
       console.log(response.data);
       console.log(`Login Success: ${response.data}`);
       toast.success(`Login Success: ${response.data}`);
-      router.push(`/profile/${response.data.username}`);
+      router.push(`/profile`);
     } catch (error: any) {
       console.log(`Login Failed...`);
       toast.error(`Login Failed`);
