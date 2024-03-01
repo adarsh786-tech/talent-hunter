@@ -3,8 +3,9 @@ import React from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
+import Image from "next/image";
 
-const page = () => {
+const ProfilePage = () => {
   const router = useRouter();
   const logout = async () => {
     try {
@@ -24,7 +25,7 @@ const page = () => {
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="md:flex">
           <div className="md:flex-shrink-0">
-            <img
+            <Image
               className="h-48 w-full object-cover md:w-48"
               src="https://via.placeholder.com/150"
               alt="Profile"
@@ -60,4 +61,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ProfilePage;

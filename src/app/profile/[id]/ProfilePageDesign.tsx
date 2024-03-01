@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const ProfilePageDesign = ({ name }: any) => {
   return (
@@ -7,7 +8,7 @@ const ProfilePageDesign = ({ name }: any) => {
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="md:flex">
           <div className="md:flex-shrink-0">
-            <img
+            <Image
               className="h-48 w-full object-cover md:w-48"
               src="https://via.placeholder.com/150"
               alt="Profile"

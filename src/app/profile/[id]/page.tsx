@@ -1,7 +1,7 @@
 import React from "react";
 import ProfilePageDesign from "@/app/profile/[id]/ProfilePageDesign";
 
-function LoginPage({ params }: any) {
+function Profile({ params }: any) {
   return (
     <>
       <ProfilePageDesign name={params.id} />
@@ -9,4 +9,4 @@ function LoginPage({ params }: any) {
   );
 }
 
-export default LoginPage;
+export default Profile;
