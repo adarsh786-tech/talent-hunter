@@ -26,8 +26,10 @@ const ProfilePage = () => {
         <div className="md:flex">
           <div className="md:flex-shrink-0">
             <Image
-              className="h-48 w-full object-cover md:w-48"
-              src="https://via.placeholder.com/150"
+              className="object-cover md:w-48"
+              width={100}
+              height={100}
+              src="https://st4.depositphotos.com/4329009/19956/v/450/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg"
               alt="Profile"
             />
           </div>

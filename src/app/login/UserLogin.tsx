@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
 
-function UserLogin() {
+const UserLogin = () => {
   const router = useRouter();
   const [user, setUser] = useState({
     email: "",
@@ -68,7 +68,7 @@ function UserLogin() {
           Don&#x27;t have an account?{" "}
           <Link
             // below to add up for signup
-            href="/register"
+            href="/"
             title=""
             className="font-semibold text-black transition-all duration-200 hover:underline"
           >

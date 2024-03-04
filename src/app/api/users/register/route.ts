@@ -9,21 +9,6 @@ connect();
 export async function POST(request: NextRequest) {
   try {
     const { username, email, password } = await request.json();
-    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // const passwordRegex =
-    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    // if (emailRegex.test(email) !== true) {
-    //   return NextResponse.json(
-    //     { error: `Email ${email} is not valid` },
-    //     { status: 400 }
-    //   );
-    // }
-    // if (passwordRegex.test(password) !== true) {
-    //   return NextResponse.json(
-    //     { error: `Password ${password} is not valid` },
-    //     { status: 400 }
-    //   );
-    // }
 
     // check if user exists..
     const user = await User.findOne({ email });

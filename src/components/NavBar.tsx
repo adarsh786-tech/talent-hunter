@@ -20,6 +20,7 @@ const NavBar = () => {
               {/* to generate */}
               <Image
                 src={NavBarLogo}
+                priority={true}
                 alt="talent"
                 className="cursor-pointer rounded-full border border-orange-600 border-solid w-[80px] h-full object-cover shadow-black"
               />

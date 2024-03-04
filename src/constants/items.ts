@@ -8,7 +8,7 @@ interface NavItemInterface {
 
 export const NavLinks: NavItemInterface[] = [
   { id: 1, name: "Home", url: "/" },
-  { id: 2, name: "About Us", url: "/" },
+  { id: 2, name: "Add Projects", url: "/devUpdate" },
   { id: 3, name: "Login", url: "/login" },
   { id: 4, name: "Register", url: "/register" },
 ];
