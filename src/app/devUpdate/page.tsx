@@ -20,6 +20,9 @@ const getProjects = async () => {
 // "http://localhost:3000/api/devprojects/projectupload"
 
 const DevUpdate = async () => {
+  if (!process.env.BASE_API_URL) {
+    return null;
+  }
   const response = await getProjects();
   const projectList = response.data;
   return (
