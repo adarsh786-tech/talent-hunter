@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Types } from "mongoose"; // For Mongo _id type
 import Projects from "@/models/Project";
 import { connect } from "@/dbConfig/db";
+export const dynamic = "force-dynamic";
 
 connect();
 
