@@ -11,6 +11,7 @@ const getProjects = async () => {
       // "http://localhost:3000/api/devprojects/projectupload"
       `${process.env.BASE_API_URL}/api/devprojects/projectupload`
     );
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching projects:", error);
