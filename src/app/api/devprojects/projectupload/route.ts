@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import Projects from "@/models/Project";
 import { connect } from "@/dbConfig/db";
-export const dynamic = "force-dynamic";
 
 connect();
-
+export const dynamic = "force-dynamic";
 export async function GET(request: NextRequest) {
   try {
     // Retrieve all projects

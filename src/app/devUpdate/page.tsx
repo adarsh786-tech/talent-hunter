@@ -9,12 +9,7 @@ const getProjects = async () => {
   try {
     const response = await axios.get(
       // "http://localhost:3000/api/devprojects/projectupload"
-      `${process.env.BASE_API_URL}/api/devprojects/projectupload`,
-      {
-        headers: {
-          "Cache-Control": "no-store", // Set cache policy to "no-store"
-        },
-      }
+      `${process.env.BASE_API_URL}/api/devprojects/projectupload`
     );
     console.log(response.data);
     return response.data;
