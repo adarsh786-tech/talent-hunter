@@ -5,34 +5,56 @@ import CardUI from "@/app/devUpdate/CardUI";
 import Image from "next/image";
 import axios from "axios";
 
+// const getProjects = async () => {
+//   try {
+//     const response = await axios.get(
+//       // "http://localhost:3000/api/devprojects/projectupload"
+//       `${process.env.BASE_API_URL}/api/devprojects/projectupload`
+//     );
+//     console.log(response.data);
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error fetching projects:", error);
+//     throw error; // Optionally re-throw the error to handle it in the calling function
+//   }
+// };
+// // "http://localhost:3000/api/devprojects/projectupload"
+// interface Project {
+//   projectName: string;
+//   projectDescription: string;
+//   projectURL: string;
+//   projectStack: string;
+
+//   // Add other properties as needed
+// }
+
+interface Project {
+  projectName: string;
+  projectDescription: string;
+  projectURL: string;
+  projectStack: string;
+  // Add other properties as needed
+}
+
 const getProjects = async () => {
   try {
     const response = await axios.get(
-      // "http://localhost:3000/api/devprojects/projectupload"
       `${process.env.BASE_API_URL}/api/devprojects/projectupload`
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching projects:", error);
     throw error; // Optionally re-throw the error to handle it in the calling function
   }
 };
-// "http://localhost:3000/api/devprojects/projectupload"
-interface Project {
-  projectName: string;
-  projectDescription: string;
-  projectURL: string;
-  projectStack: string;
-
-  // Add other properties as needed
-}
 const DevUpdate = async () => {
   if (!process.env.BASE_API_URL) {
     return null;
   }
+
   const response = await getProjects();
-  const projectList = response.data;
+  const projectList: Project[] = response.data;
+
   return (
     <div className="bg-gradient-to-br from-slate-700 via-slate-950 to-slate-700">
       <div className="grid grid-cols-1 md:grid-cols-2">
@@ -51,17 +73,15 @@ const DevUpdate = async () => {
         </div>
       </div>
       <div className="flex flex-row gap-4">
-        {projectList.map((project: Project, indx: number) => {
-          return (
-            <CardUI
-              key={indx}
-              title={project.projectName}
-              description={project.projectDescription}
-              url={project.projectURL}
-              techStack={project.projectStack}
-            />
-          );
-        })}
+        {projectList.map((project: Project, indx: number) => (
+          <CardUI
+            key={indx}
+            title={project.projectName}
+            description={project.projectDescription}
+            url={project.projectURL}
+            techStack={project.projectStack}
+          />
+        ))}
       </div>
     </div>
   );
