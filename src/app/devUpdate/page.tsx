@@ -18,7 +18,14 @@ const getProjects = async () => {
   }
 };
 // "http://localhost:3000/api/devprojects/projectupload"
+interface Project {
+  projectName: string;
+  projectDescription: string;
+  projectURL: string;
+  projectStack: string;
 
+  // Add other properties as needed
+}
 const DevUpdate = async () => {
   if (!process.env.BASE_API_URL) {
     return null;
@@ -43,7 +50,7 @@ const DevUpdate = async () => {
         </div>
       </div>
       <div className="flex flex-row gap-4">
-        {projectList.map((project: any, indx: number) => {
+        {projectList.map((project: Project, indx: number) => {
           return (
             <CardUI
               key={indx}
