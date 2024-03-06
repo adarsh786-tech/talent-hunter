@@ -74,17 +74,17 @@ const ProfilePageDesign = ({ name }: any) => {
                 />
               </button>
             </div>
-            <p className="text-xl font-medium">"Developer"</p>
-            <p className="text-lg">"Earth"</p>
+            <p className="text-xl font-medium">Developer</p>
+            <p className="text-lg">Earth</p>
           </div>
         </header>
         <main className="p-4">
           <section className="bg-slate-700 shadow-lg rounded-lg p-4 mb-6">
             <h2 className="text-2xl font-semibold mb-2">About Me</h2>
             <p className="text-white">
-              "Veniam aliquip ex nostrud tempor in laborum veniam cupidatat
+              Veniam aliquip ex nostrud tempor in laborum veniam cupidatat
               voluptate consectetur aute. Et laborum dolore id sit eu.
-              Exercitation ex magna amet fugiat."
+              Exercitation ex magna amet fugiat.
             </p>
           </section>
 
