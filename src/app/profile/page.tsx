@@ -1,12 +1,40 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
 import Image from "next/image";
+import CardUI from "../devUpdate/CardUI";
+
+const getProjects = async () => {
+  try {
+    const response = await axios.get(
+      // `${process.env.BASE_API_URL}/api/devprojects/projectupload`
+      `/api/devprojects/projectupload`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    throw error; // Optionally re-throw the error to handle it in the calling function
+  }
+};
 
 const ProfilePage = () => {
   const router = useRouter();
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await getProjects();
+        setProjects(response.data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+    fetchProjects();
+  }, []);
+
   const logout = async () => {
     try {
       await axios.get("/api/users/logout");
@@ -20,7 +48,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 bg-gradient-to-br from-slate-700 via-slate-950 to-slate-700">
       <Toaster position="top-right" />
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="md:flex">
@@ -59,6 +87,16 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
+      {projects.length > 0 &&
+        projects.map((project: any) => (
+          <CardUI
+            key={project.projectName}
+            title={project.projectName}
+            description={project.projectDescription}
+            url={project.projectURL}
+            techStack={project.projectStack}
+          />
+        ))}
     </div>
   );
 };

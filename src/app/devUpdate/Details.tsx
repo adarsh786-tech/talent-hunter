@@ -1,17 +1,16 @@
 "use client";
 import React, { ChangeEvent } from "react";
 import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import ProfilePageRouteImage from "@/assets/profile.svg";
 import Image from "next/image";
 import UploadContent from "@/assets/uploadData.svg";
 import ResetData from "@/assets/resetData.svg";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-// import { createProject } from "../api/projects/route";
 const Details = () => {
-  // const router = useRouter();
-
+  const router = useRouter();
   const [project, setProject] = useState({
     projectName: "",
     projectDescription: "",
@@ -45,6 +44,10 @@ const Details = () => {
       console.log(`Upload Failed...Error: ${error.response}`);
       toast.error(`Upload Failed... Error: ${error.response}`);
     }
+  };
+
+  const routeToProfilePage = () => {
+    router.push("/profile");
   };
 
   const resetAllData = () => {
@@ -148,13 +151,23 @@ const Details = () => {
             />
           </div>
 
-          <div className="flex justify-center items-center p-2 gap-10">
+          <div className="flex flex-row justify-center items-center p-2 gap-10">
             <button
               onClick={handleUpdateDetails}
               className="flex justify-center items-center rounded-lg shadow-sm shadow-white"
             >
               <Image
                 src={UploadContent}
+                alt="Upload Data"
+                className="w-[40px] h-[40px]"
+              />
+            </button>
+            <button
+              onClick={routeToProfilePage}
+              className="flex justify-center items-center rounded-lg shadow-sm shadow-white"
+            >
+              <Image
+                src={ProfilePageRouteImage}
                 alt="Upload Data"
                 className="w-[40px] h-[40px]"
               />
