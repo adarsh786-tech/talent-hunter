@@ -1,6 +1,6 @@
 // login route
 import { connect } from "@/dbConfig/db";
-import User from "@/models/User";
+import User from "@/models/UserAuth";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -42,6 +42,9 @@ export async function POST(request: NextRequest) {
       message: "Login successful",
       success: true,
     });
+
+    response.headers.set("Location", `/profile/${user.username}`);
+
     response.cookies.set("token", token, {
       httpOnly: true,
     });

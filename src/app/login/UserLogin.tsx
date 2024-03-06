@@ -31,7 +31,13 @@ const UserLogin = () => {
       console.log(response.data);
       console.log(`Login Success: ${response.data}`);
       toast.success(`Login Success: ${response.data}`);
-      router.push(`/profile`);
+      if (response.headers.location) {
+        const profileUrl = response.headers.location;
+        router.push(profileUrl); // Redirect to profile page using location header
+      } else {
+        // Fallback behavior if location header is not set
+        router.push(`/profile`); // Default redirect to profile page
+      }
     } catch (error: any) {
       console.log(`Login Failed...`);
       toast.error(`Login Failed`);
@@ -68,7 +74,7 @@ const UserLogin = () => {
           Don&#x27;t have an account?{" "}
           <Link
             // below to add up for signup
-            href="/"
+            href="/register"
             title=""
             className="font-semibold text-black transition-all duration-200 hover:underline"
           >
@@ -133,6 +139,6 @@ const UserLogin = () => {
       </div>
     </section>
   );
-}
+};
 
 export default UserLogin;

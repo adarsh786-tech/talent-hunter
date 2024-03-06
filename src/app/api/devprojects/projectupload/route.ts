@@ -1,14 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
 import Projects from "@/models/Project";
+import UserProject from "@/models/UserProject";
 import { connect } from "@/dbConfig/db";
+import jwt from "jsonwebtoken";
+import ObjectId from "mongoose";
 
 connect();
+
+interface JwtPayload {
+  id: string; // Include the missing property
+  // ... other properties
+}
+
 export const dynamic = "force-dynamic";
 export async function GET(request: NextRequest) {
   try {
-    // Retrieve all projects
-    const projects = await Projects.find();
+    const userToken = request.cookies.get("token")?.value;
+    if (!userToken) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+    // token expiration will be handled later
 
+    const decodedToken = await jwt.verify(userToken, process.env.AUTH_SECRET!);
+
+    // Extract user ID
+    const userId = (decodedToken as JwtPayload).id;
+    console.log("===================================================");
+    console.log("User ID IS: ", userId);
+    console.log("===================================================");
+    // const oid = new ObjectId(userId);
+
+    // Retrieve all projects
+    // const projects = await Projects.find({ userId: userId });
+    // const projects = await Projects.find({ _id: objectId });
+    // { _id: ObjectId(userId) }
+    const projects = await Projects.find({ projectName: "Youtube Clone" });
     const sanitizedProjects = projects.map((project) => ({
       _id: project._id,
       projectName: project.projectName,
@@ -17,6 +43,8 @@ export async function GET(request: NextRequest) {
       projectStack: project.projectStack,
       // ... other required fields
     }));
+    // console.log(sanitizedProjects);
+    console.log([projects]);
 
     return NextResponse.json(
       {
@@ -58,6 +86,28 @@ export async function POST(request: NextRequest) {
       projectStack: savedProject.projectStack,
       // ... other required fields
     };
+
+    const token = request.cookies.get("token")?.value;
+
+    if (!token) {
+      // Handle unauthorized access
+      return NextResponse.json(
+        { message: "Unauthorized Access" },
+        { status: 401 }
+      );
+    }
+
+    // Verify and decode JWT
+    const decodedToken = await jwt.verify(token, process.env.AUTH_SECRET!);
+
+    // Extract user ID
+    const userId = (decodedToken as JwtPayload).id;
+
+    const userProject = new UserProject({
+      userId: userId, // need to be updated
+      projects: [savedProject._id],
+    });
+    await userProject.save();
 
     return NextResponse.json(
       {

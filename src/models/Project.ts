@@ -28,18 +28,7 @@ const projectSchema: Schema = new Schema({
     type: String,
     required: [true, "Please provide tech stacks separated by ,"],
   },
-  // user: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "User", // Reference the User model
-  //   required: true,
-  // },
 });
 const Projects =
   mongoose.models.projects || mongoose.model("projects", projectSchema);
 export default Projects;
-
-// user: {
-//   type: mongoose.Schema.Types.ObjectId,
-//   ref: "User", // Reference the User model
-//   required: true,
-// },

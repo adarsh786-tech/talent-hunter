@@ -1,6 +1,6 @@
 // register route
 import { connect } from "@/dbConfig/db";
-import User from "@/models/User";
+import User from "@/models/UserAuth";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 

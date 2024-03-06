@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Logo from "@/assets/talenthunter.png";
 import Details from "@/app/devUpdate/Details";
-import CardUI from "@/app/devUpdate/CardUI";
 import Image from "next/image";
 
 const DevUpdate = async () => {

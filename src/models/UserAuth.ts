@@ -7,7 +7,7 @@ export interface IUser extends Document {
   password: string;
 }
 
-const userSchema: Schema = new Schema({
+const userAuthSchema: Schema = new Schema({
   username: {
     type: String,
     required: [true, "Please provide a username"],
@@ -28,5 +28,6 @@ const userSchema: Schema = new Schema({
   verifyToken: String,
   verifyTokenExpiry: Date,
 });
-const User = mongoose.models.users || mongoose.model("users", userSchema);
-export default User;
+const UserAuth =
+  mongoose.models.authusers || mongoose.model("authusers", userAuthSchema);
+export default UserAuth;
