@@ -3,13 +3,12 @@ import Projects from "@/models/Project";
 import UserProject from "@/models/UserProject";
 import { connect } from "@/dbConfig/db";
 import jwt from "jsonwebtoken";
-import ObjectId from "mongoose";
+import ProjectUsers from "@/models/UserProject";
 
 connect();
 
 interface JwtPayload {
-  id: string; // Include the missing property
-  // ... other properties
+  id: string;
 }
 
 export const dynamic = "force-dynamic";
@@ -23,28 +22,51 @@ export async function GET(request: NextRequest) {
 
     const decodedToken = await jwt.verify(userToken, process.env.AUTH_SECRET!);
 
-    // Extract user ID
     const userId = (decodedToken as JwtPayload).id;
-    console.log("===================================================");
-    console.log("User ID IS: ", userId);
-    console.log("===================================================");
-    // const oid = new ObjectId(userId);
+    console.log(userId);
 
-    // Retrieve all projects
-    // const projects = await Projects.find({ userId: userId });
-    // const projects = await Projects.find({ _id: objectId });
-    // { _id: ObjectId(userId) }
-    const projects = await Projects.find({ projectName: "Youtube Clone" });
-    const sanitizedProjects = projects.map((project) => ({
+    const projectData = await ProjectUsers.find({ userId: userId });
+
+    if (!projectData) {
+      return NextResponse.json(
+        { message: "Internal Server Error" },
+        { status: 500 }
+      );
+    }
+    console.log(projectData);
+
+    let resultantData: any[] = [];
+
+    const fetchData = async () => {
+      for (const proj of projectData) {
+        const projectActualId = proj.projects[0];
+        try {
+          const projectEntries = await Projects.findOne({
+            _id: projectActualId,
+          });
+          resultantData.push(projectEntries);
+        } catch (error) {
+          console.error(
+            `Error fetching project with ID ${projectActualId}:`,
+            error
+          );
+        }
+      }
+
+      return resultantData;
+    };
+
+    const dataCollection = await fetchData();
+    console.log(dataCollection);
+
+    const sanitizedProjects = dataCollection.map((project: any) => ({
       _id: project._id,
       projectName: project.projectName,
       projectDescription: project.projectDescription,
       projectURL: project.projectURL,
       projectStack: project.projectStack,
-      // ... other required fields
     }));
-    // console.log(sanitizedProjects);
-    console.log([projects]);
+    console.log(sanitizedProjects);
 
     return NextResponse.json(
       {
@@ -77,14 +99,12 @@ export async function POST(request: NextRequest) {
 
     const savedProject = await newProject.save();
 
-    // Return only necessary fields or redact sensitive data
     const sanitizedProject = {
-      _id: savedProject._id, // Assuming _id is public
+      _id: savedProject._id,
       projectName: savedProject.projectName,
       projectDescription: savedProject.projectDescription,
       projectURL: savedProject.projectURL,
       projectStack: savedProject.projectStack,
-      // ... other required fields
     };
 
     const token = request.cookies.get("token")?.value;
@@ -119,7 +139,6 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     console.error("Error saving project:", error);
-    // Handle specific error types here (e.g., database errors) and provide tailored messages
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }
