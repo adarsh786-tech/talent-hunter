@@ -1,15 +1,13 @@
-import NavBar from "@/components/NavBar";
-// import Hero from "@/components/Hero";
-import Footer from "@/components/Footer";
+import LandingNavBar from "@/components/landing-navbar";
+import LandingHeroPage from "@/components/landing-hero-page";
+import TeamDataContent from "@/components/team-data";
 
 export default function Home() {
   return (
-    <>
-      <div className="bg-slate-600 w-full overflow-hidden">
-        <NavBar />
-        {/* <Hero /> */}
-        {/* <Footer /> */}
-      </div>
-    </>
+    <div className="bg-slate-900 w-full overflow-hidden">
+      <LandingNavBar />
+      <LandingHeroPage />
+      <TeamDataContent />
+    </div>
   );
 }
