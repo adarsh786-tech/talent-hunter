@@ -1,5 +1,3 @@
-import SearchInput from "@/components/SearchInput";
-
 const ProjectDashboard = () => {
   return (
     <div className="bg-slate-900 h-full w-full overflow-auto">
@@ -8,7 +6,6 @@ const ProjectDashboard = () => {
           <h1>Projects Dashboard</h1>
         </div>
         <h3>Explore and Search All Projects</h3>
-        <SearchInput />
       </div>
     </div>
   );
