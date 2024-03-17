@@ -4,6 +4,8 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useRouter, useSearchParams } from "next/navigation";
 import useDebounce from "@/hooks/UseDebounce";
+import { Suspense } from "react";
+
 import qs from "query-string";
 const SearchInput = () => {
   const router = useRouter();
@@ -36,13 +38,15 @@ const SearchInput = () => {
 
   return (
     <div className="relative">
-      <Search className="absolute h-4 w-4 top-3 left-4 text-muted-foreground w-30" />
-      <Input
-        onChange={onChange}
-        value={value}
-        placeholder="Search.."
-        className="pl-10 bg-slate-900"
-      />
+      <Suspense>
+        <Search className="absolute h-4 w-4 top-3 left-4 text-muted-foreground w-30" />
+        <Input
+          onChange={onChange}
+          value={value}
+          placeholder="Search.."
+          className="pl-10 bg-slate-900"
+        />
+      </Suspense>
     </div>
   );
 };
