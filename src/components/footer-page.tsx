@@ -63,7 +63,7 @@ const FooterPage = () => {
               </p>
               <ul className="flex flex-col space-y-4 text-[14px] font-medium text-gray-500 cursor-pointer">
                 {footerContent.content.map((item, indx) => (
-                  <Link href="#">
+                  <Link key={indx} href="#">
                     <h1 className="text-zinc-400 hover:underline">{item}</h1>
                   </Link>
                 ))}
