@@ -1,9 +1,10 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+"use client";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-const HeroButtonDisp = async () => {
-  const session = await getServerSession(authOptions);
+const HeroButtonDisp = () => {
+  const { data: session, status } = useSession();
+
   return (
     <div className="flex items-center justify-center">
       {session ? (
@@ -26,7 +27,7 @@ const HeroButtonDisp = async () => {
           </Link>
         </div>
       ) : (
-        <Link href="/register">
+        <Link href="/api/auth/signin?callbackUrl=/">
           <Button
             variant="outline"
             className="text-lg bg-transparent bg-gray-700  text-white hover:text-gray-900 hover:underline"

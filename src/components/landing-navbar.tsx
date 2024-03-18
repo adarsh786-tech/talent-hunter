@@ -1,26 +1,23 @@
+"use client";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { FolderOpenDot, LogInIcon, UsersRoundIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { authOptions } from "@/app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth";
-
+import { useSession } from "next-auth/react";
+import AccountMenu from "@/components/drop-down-menu";
 const font = Montserrat({
   weight: "600",
   subsets: ["latin"],
 });
 
-const LandingNavBar = async () => {
-  const session = await getServerSession(authOptions);
-  console.log("------------------------------------------");
-  if (session) console.log(`Session Exists`);
-  else console.log(`Session Not Exists`);
-  console.log(`User Name: ${session?.user?.name}`);
-  console.log(`User Email: ${session?.user?.email}`);
-  console.log(`User Image: ${session?.user?.image}`);
-  console.log("------------------------------------------");
+// const onClickActivateMenu = () => {
+
+// }
+
+const LandingNavBar = () => {
+  const { data: session, status } = useSession();
 
   return (
     <nav className="p-4 bg-transparent  bg-slate-800 flex items-center justify-between">
@@ -74,16 +71,7 @@ const LandingNavBar = async () => {
           </Button>
         </Link>
         {session ? (
-          <Link href="/api/auth/signout?callbackUrl=/">
-            <Button
-              variant="customCss"
-              className="text-gray-200 hover:text-gray-300 hover:underline"
-            >
-              {" "}
-              Logout
-              <LogInIcon className="m-2" />
-            </Button>
-          </Link>
+          <AccountMenu />
         ) : (
           <Link href="/api/auth/signin?callbackUrl=/">
             <Button
