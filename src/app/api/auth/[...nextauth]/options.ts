@@ -27,6 +27,7 @@ export const authOptions: NextAuthOptions = {
           // Handle connection error
           return false; // Or throw an error if necessary
         });
+
       const currentUser = await prismadb.user.findFirst({
         where: {
           name: user.name!,
@@ -34,6 +35,7 @@ export const authOptions: NextAuthOptions = {
           srcImage: user.image!,
         },
       });
+
       if (currentUser) {
         console.log(`User already exists!!`);
       } else {
@@ -45,34 +47,25 @@ export const authOptions: NextAuthOptions = {
         const newUser = await prismadb.user.create({
           data: userData,
         });
-        console.log(`User Created: ${newUser}`);
+        console.log(`User Created Successfully!!`);
       }
 
       return true;
     },
-    async jwt({ token, user, session }) {
-      console.log("JWT callback: ", { token, user, session });
+
+    jwt({ token, user }) {
       if (user) {
-        return {
-          ...token,
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          picture: user.image,
-        };
+        return { ...token, id: user.id }; // Save id to token as docs says: https://next-auth.js.org/configuration/callbacks
       }
       return token;
     },
-    async session({ session, token, user }) {
-      // console.log("Session callback: ", user);
+    session: ({ session, token, user }) => {
       return {
         ...session,
         user: {
           ...session.user,
-          id: token.id,
-          name: token.name,
-          email: token.email,
-          image: token.picture,
+          // id: user.id, // This is copied from official docs which find user is undefined
+          id: token.id, // Get id from token instead
         },
       };
     },

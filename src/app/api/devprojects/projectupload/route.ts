@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import prismadb from "@/lib/prismadb";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
+import { ObjectId } from "mongoose";
 connect();
 
 // export const dynamic = "force-dynamic";
@@ -82,50 +83,55 @@ connect();
 
 export async function POST(request: NextRequest) {
   try {
-    // const sessionObj = await authOptions.callbacks?.session;
-    // console.log(sessionObj);
     const session = await getServerSession(authOptions);
-    console.log(
-      "Session Details:\n----------------------------------\n",
-      session
-    );
-
-    // console.log("JWT Details: ", session?.user._id);
-
-    // console.log("Session id: ", session?.user._id);
-    // console.log("Session Name: ", session?.user.name);
-    // console.log("Session Email: ", session?.user.email);
-    // console.log("Session Image: ", session?.user.srcImage);
-    // console.log("Session Image: ");
-
-    const { projectName, projectDescription, projectURL, projectStack } =
-      await request.json();
-    console.log(projectName, projectDescription, projectURL, projectStack);
-
-    // const userExists = await prismadb.user.findUnique({
-    //   where: {
-    //     id: session?.user.id,
-    //     name: session?.user?.name as string,
-    //     email: session?.user?.email as string,
-    //     srcImage: session?.user?.image as string,
-    //   },
-    // });
-
-    // if (!userExists) {
-    //   return NextResponse.json({
-    //     message: "User does not exist!!",
-    //     status: 401,
-    //   });
-    // }
-    const newProject = await prismadb.project.create({
-      data: {
-        userId: "65f8b6c0b007c924b4c65e5f",
-        projectName: projectName,
-        projectDescription: projectDescription,
-        projectUrl: projectURL,
-        projectTechStack: projectStack,
-      },
-    });
+    console.log(session);
+    if (!session) {
+      return NextResponse.json(
+        { message: "Session Expired...Login Again" },
+        { status: 500 }
+      );
+    } else {
+      const firstUser = await prismadb.user.findFirst({
+        where: {
+          email: session?.user.email,
+        },
+      });
+      console.log(`First User: `, firstUser);
+      const { projectName, projectDescription, projectURL, projectStack } =
+        await request.json();
+      console.log(projectName, projectDescription, projectURL, projectStack);
+      const userExists = await prismadb.user.findUnique({
+        where: {
+          id: firstUser?.id as string,
+          name: session?.user?.name as string,
+          email: session?.user?.email as string,
+          srcImage: session?.user?.image as string,
+        },
+      });
+      if (!userExists) {
+        return NextResponse.json({
+          message: "User does not exist!!",
+          status: 401,
+        });
+      }
+      const newProject = await prismadb.project.create({
+        data: {
+          userId: firstUser?.id as string,
+          projectName: projectName as string,
+          projectDescription: projectDescription as string,
+          projectUrl: projectURL as string,
+          projectTechStack: projectStack as string,
+        },
+      });
+      return NextResponse.json(
+        {
+          message: "Project uploaded successfully",
+          success: true,
+          data: newProject,
+        },
+        { status: 200 }
+      );
+    }
 
     // if (!session) {
     //   // Handle unauthorized access
@@ -134,15 +140,6 @@ export async function POST(request: NextRequest) {
     //     { status: 401 }
     //   );
     // }
-
-    return NextResponse.json(
-      {
-        message: "Project uploaded successfully",
-        success: true,
-        data: newProject,
-      },
-      { status: 200 }
-    );
   } catch (error) {
     console.error("Error saving project:", error);
     return NextResponse.json(
