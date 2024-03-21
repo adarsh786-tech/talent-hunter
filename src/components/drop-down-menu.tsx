@@ -14,6 +14,7 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Toaster, toast } from "react-hot-toast";
 
 export default function AccountMenu() {
   const router = useRouter();
@@ -27,11 +28,24 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
 
+  const navigateToProfilePage = () => {
+    if (session) {
+      const username = "_dev"
+        .concat(session.user.name.split(" ")[0])
+        .concat("_");
+      router.push(`/profile/${username}`);
+    } else {
+      toast.error(`Session Expired...Signup again!!`);
+      router.push("/");
+    }
+  };
+
   const handleLogout = () => {
     router.push("/api/auth/signout?callbackUrl=/");
   };
   return (
     <React.Fragment>
+      <Toaster position="top-right" />
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
         {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography>
         <Typography sx={{ minWidth: 100 }}>Profile</Typography> */}
@@ -85,7 +99,7 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={navigateToProfilePage}>
           <Avatar alt="user" src={session?.user?.image!} /> My Profile
         </MenuItem>
         {/* <MenuItem onClick={handleClose}>

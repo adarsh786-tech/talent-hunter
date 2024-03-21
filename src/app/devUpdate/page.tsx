@@ -9,9 +9,9 @@ const DevUpdate = async () => {
   }
 
   return (
-    <div className="bg-gradient-to-br from-slate-700 via-slate-950 to-slate-700">
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        <div className="h-full">
+    <div className="bg-gradient-to-br from-slate-700 via-slate-950 to-slate-700 flex items-center justify-center">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2"> */}
+      {/* <div className="h-full">
           <Image
             src={Logo}
             alt="logo"
@@ -20,12 +20,12 @@ const DevUpdate = async () => {
             priority={true}
             className="w-full h-full object-contain priority={true}"
           />
-        </div>
-        <div className="h-full">
-          <Details />
-        </div>
+        </div> */}
+      <div className="h-full">
+        <Details />
       </div>
     </div>
+    // </div>
   );
 };
 

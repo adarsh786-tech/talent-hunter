@@ -8,9 +8,12 @@ import ResetData from "@/assets/resetData.svg";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const Details = () => {
   const router = useRouter();
+  const { data: session, status } = useSession();
+
   const [project, setProject] = useState({
     projectName: "",
     projectDescription: "",
@@ -46,10 +49,6 @@ const Details = () => {
     }
   };
 
-  const routeToProfilePage = () => {
-    router.push("/profile");
-  };
-
   const resetAllData = () => {
     setProject({
       projectName: "",
@@ -57,6 +56,19 @@ const Details = () => {
       projectURL: "",
       projectStack: "",
     });
+  };
+
+  const routeToProfilePage = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (session === null) {
+      toast.error(`Session Expired.. Signin Again`);
+      router.push("/");
+    } else {
+      const username = "_dev"
+        .concat(session?.user.name.split(" ")[0])
+        .concat("_");
+      router.push(`/profile/${username}`);
+    }
   };
 
   return (

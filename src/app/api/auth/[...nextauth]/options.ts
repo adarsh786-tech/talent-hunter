@@ -30,7 +30,8 @@ export const authOptions: NextAuthOptions = {
 
       const currentUser = await prismadb.user.findFirst({
         where: {
-          name: user.name!,
+          username: "_dev".concat(user.name!.split(" ")[0]).concat("_"),
+          fullname: user.name!,
           email: user.email!,
           srcImage: user.image!,
         },
@@ -40,9 +41,10 @@ export const authOptions: NextAuthOptions = {
         console.log(`User already exists!!`);
       } else {
         const userData = {
-          name: user.name,
-          email: user.email,
-          srcImage: user.image,
+          username: "_dev".concat(user.name!.split(" ")[0]).concat("_"),
+          fullname: user.name!,
+          email: user.email!,
+          srcImage: user.image!,
         };
         const newUser = await prismadb.user.create({
           data: userData,

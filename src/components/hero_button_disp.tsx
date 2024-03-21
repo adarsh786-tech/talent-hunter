@@ -9,7 +9,7 @@ const HeroButtonDisp = () => {
     <div className="flex items-center justify-center">
       {session ? (
         <div className="flex gap-3">
-          <Link href="/search-project">
+          <Link href="/exploreProject">
             <Button
               variant="outline"
               className="text-lg bg-transparent bg-gray-700  text-white hover:text-gray-900 hover:underline"

@@ -14,7 +14,6 @@ const CardUI = ({
   techStack: string;
 }) => {
   const techStackLst = techStack.split(",");
-  //   const router = useRouter();
   const visitURL = () => {
     window.open(url, "_blank");
   };
