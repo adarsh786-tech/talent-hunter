@@ -99,6 +99,7 @@ export async function POST(request: NextRequest) {
       const newProject = await prismadb.project.create({
         data: {
           userId: firstUser?.id as string,
+          username: firstUser?.username as string,
           projectName: projectName as string,
           projectDescription: projectDescription as string,
           projectUrl: projectURL as string,

@@ -19,10 +19,12 @@ const getAllProjects = async () => {
 };
 
 interface ProjectStructureProps {
+  username: string;
   projectName: string;
   projectDescription: string;
   projectUrl: string;
   projectTechStack: string;
+  author: string;
 }
 
 const ProjectDashboard = () => {
@@ -63,13 +65,14 @@ const ProjectDashboard = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-5">
         {projects
           ? projects.length > 0 &&
-            projects.map((project: ProjectStructureProps) => (
+            projects.map((project: ProjectStructureProps, index) => (
               <ProjectDetailsCard
-                key={project.projectName}
+                key={index}
                 title={project.projectName}
                 description={project.projectDescription}
                 url={project.projectUrl}
                 techStack={project.projectTechStack}
+                author={project.username}
               />
             ))
           : null}

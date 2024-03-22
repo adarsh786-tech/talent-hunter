@@ -31,10 +31,12 @@ const getProjects = async () => {
 };
 
 interface ProjectStructureProps {
+  username: string;
   projectName: string;
   projectDescription: string;
   projectUrl: string;
   projectTechStack: string;
+  author: string;
 }
 
 const ProfilePageDesign = ({ name }: any) => {
@@ -65,6 +67,7 @@ const ProfilePageDesign = ({ name }: any) => {
       toast.error("Logout Failed...");
     }
   };
+
   return (
     <div className="bg-gradient-to-br from-slate-700 via-slate-950 to-slate-700 min-h-screen flex justify-center items-center p-4">
       <Toaster position="top-right" />
@@ -154,7 +157,7 @@ const ProfilePageDesign = ({ name }: any) => {
               Projects
             </h2>
             <div>
-              <div className="flex flex-col sm:flex-row md:flex-row gap-4 overflow-x-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-5">
                 {projects
                   ? projects.length > 0 &&
                     projects.map((project: ProjectStructureProps) => (
@@ -164,9 +167,7 @@ const ProfilePageDesign = ({ name }: any) => {
                         description={project.projectDescription}
                         url={project.projectUrl}
                         techStack={project.projectTechStack}
-                        // author={"_dev"
-                        //   .concat(session?.user.name.split(" ")[0])
-                        //   .concat("_")}
+                        author={project.username}
                       />
                     ))
                   : null}

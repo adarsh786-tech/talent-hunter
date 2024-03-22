@@ -14,25 +14,28 @@ const ProjectDetailsCard = ({
   description,
   url,
   techStack,
+  author,
 }: {
   title: string;
   description: string;
   url: string;
   techStack: string;
+  author: string;
 }) => {
   const techStackLst = techStack.split(",");
   const visitURL = () => {
     window.open(url, "_blank");
   };
+  const imageUrl = `https://image.thum.io/get/width/600/crop/600/${url}`;
   return (
     <div className="w-[300px] rounded-md border">
       <Image
-        src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJsb2d8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
-        alt="Laptop"
+        src={imageUrl}
+        alt="Screenshot generated from thum.io"
         width={600}
-        height={300}
+        height={600}
         priority={true}
-        className="h-[200px] w-full rounded-t-md object-cover"
+        className="p-1 rounded-t-md object-cover"
       />
       <div className="p-4">
         <h1
@@ -59,6 +62,17 @@ const ProjectDetailsCard = ({
             </span>
           ))}
         </div>
+        <div className="mt-4">
+          <span
+            className={cn(
+              "mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900",
+              font.className
+            )}
+          >
+            Developer: @{author}
+          </span>
+        </div>
+
         <button
           type="button"
           onClick={visitURL}
