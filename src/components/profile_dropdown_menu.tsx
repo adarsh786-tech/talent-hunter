@@ -47,8 +47,6 @@ export default function AccountMenu() {
     <React.Fragment>
       <Toaster position="top-right" />
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-        <Typography sx={{ minWidth: 100 }}>Profile</Typography> */}
         <Tooltip title="Account settings">
           <IconButton
             className="flex items-center justify-center shadow-slate-500 shadow-md rounded-3xl"
@@ -59,7 +57,6 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            {/* <Avatar sx={{ width: 32, height: 32 }}>M</Avatar> */}
             <Avatar alt="user" src={session?.user?.image!} />
           </IconButton>
         </Tooltip>
@@ -102,22 +99,7 @@ export default function AccountMenu() {
         <MenuItem onClick={navigateToProfilePage}>
           <Avatar alt="user" src={session?.user?.image!} /> My Profile
         </MenuItem>
-        {/* <MenuItem onClick={handleClose}>
-          <Avatar /> My account
-        </MenuItem> */}
         <Divider />
-        {/* <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem> */}
-        {/* <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem> */}
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />

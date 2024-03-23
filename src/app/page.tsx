@@ -4,6 +4,8 @@ import LandingHeroPage from "@/components/landing-hero-page";
 import TeamDataContent from "@/components/team-data";
 import { useSession } from "next-auth/react";
 import { Skeleton } from "@mui/material";
+import LandingContent from "@/components/landing-content";
+import FooterPage from "@/components/footer-page";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -20,7 +22,9 @@ export default function Home() {
         />
       )}
       <LandingHeroPage />
+      <LandingContent />
       <TeamDataContent />
+      <FooterPage />
     </div>
   );
 }

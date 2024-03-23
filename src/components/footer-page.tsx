@@ -74,26 +74,34 @@ const FooterPage = () => {
       </div>
       <hr className="my-4" />
       <div className="mx-auto max-w-6xl items-center justify-between px-4 md:flex lg:px-0">
-        <div className="inline-flex items-center gap-3 mb-5">
-          <Image
+        <div className="inline-flex items-center gap-2 mb-5">
+          {/* <Image
             width={30}
             height={30}
             alt="Logo"
             src="/logo.png"
             className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg border border-red shadow-white"
-          />
+          /> */}
           <h1
             className={cn(
-              "text-2xl font-bold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent",
+              "text-2xl font-bold bg-gradient-to-r from-teal-400 via-white to-teal-500 bg-clip-text text-transparent",
               font.className
             )}
           >
-            MINDperfect.ai
+            Talent
+          </h1>
+          <h1
+            className={cn(
+              "text-md font-bold bg-gradient-to-r from-teal-400 via-white to-teal-500 bg-clip-text text-transparent",
+              font.className
+            )}
+          >
+            Hunter
           </h1>
         </div>
-        <div className="mt-4 md:mt-0 mb-5 flex flex-row gap-3">
+        <div className="mt-4 md:mt-0 mb-5 flex flex-row gap-4">
           <p className="text-sm font-medium text-gray-500">
-            © 2024 MINDperfect.AI
+            © 2024 Talent Hunter
           </p>
 
           <p className="text-sm font-medium text-gray-500">

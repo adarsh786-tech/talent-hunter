@@ -13,35 +13,35 @@ const testimonials = [
     avatar: "E",
     title: "Creative Content Creator",
     description:
-      "MindPerfect.ai is a game-changer! It's like having a creative genie in a bottle. My content has never been more engaging!",
+      "Talent Hunter is a game-changer! It's like having a creative genie in a bottle. My one stop platform for portfolio!",
   },
-  {
-    name: "Marcus",
-    avatar: "M",
-    title: "Data-Driven Wordsmith",
-    description:
-      "MindPerfect.ai is my secret weapon. It turns data into compelling narratives effortlessly. A must-have tool for any content strategist!",
-  },
+  // {
+  //   name: "Marcus",
+  //   avatar: "M",
+  //   title: "Data-Driven Wordsmith",
+  //   description:
+  //     "MindPerfect.ai is my secret weapon. It turns data into compelling narratives effortlessly. A must-have tool for any content strategist!",
+  // },
   {
     name: "Sophie",
     avatar: "S",
     title: "Master of Content Innovation",
     description:
-      "MindPerfect.ai takes content creation to the next level. It's intuitive, versatile, and always delivers beyond expectations. Simply brilliant!",
+      "This platform is next level. It's intuitive, versatile, and always delivers beyond expectations. Simply brilliant!",
   },
-  {
-    name: "Alex",
-    avatar: "A",
-    title: "Content Strategy Maestro",
-    description:
-      "MindPerfect.ai is the cornerstone of my content strategy. It's like having an entire team of experts at my fingertips. Thank you for making my job easier!",
-  },
+  // {
+  //   name: "Alex",
+  //   avatar: "A",
+  //   title: "Content Strategy Maestro",
+  //   description:
+  //     "MindPerfect.ai is the cornerstone of my content strategy. It's like having an entire team of experts at my fingertips. Thank you for making my job easier!",
+  // },
   {
     name: "Natalie",
     avatar: "N",
     title: "Content Quality Guardian",
     description:
-      "MindPerfect.ai ensures that every piece of content meets the highest standards. It's a lifesaver for maintaining consistency and excellence. Bravo!",
+      "Talent Hunter ensures that every piece of my content meets the highest standards. It's a lifesaver for maintaining consistency and excellence. Bravo!",
   },
 ];
 

@@ -8,7 +8,7 @@ const HeroButtonDisp = () => {
   return (
     <div className="flex items-center justify-center">
       {session ? (
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row sm:mt-5 md:flex-row md:mt-5 lg:flex-row lg:mt-5 xl:flex-row xl:mt-5 gap-3">
           <Link href="/exploreProject">
             <Button
               variant="outline"
